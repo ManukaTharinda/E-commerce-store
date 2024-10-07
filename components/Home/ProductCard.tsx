@@ -1,16 +1,29 @@
-import { product } from '@/typing'
+"use client";
+
+
+import { product } from '@/typing';
 import { Heart, ShoppingBag, StarIcon } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { Button } from '../ui/button';
+import { useDispatch } from 'react-redux';
+import { addItem } from '@/store/cartSlice';
 
 type Props = {
   product: product;
 };
 
 const ProductCard = ({ product }: Props) => {
+  const dispatch = useDispatch();
+
+  // Round rating and create an array to map stars
   const num = Math.round(product.rating.rate);
   const ratingArray = new Array(num).fill(0);
+
+  // Handler to add product to cart
+  const addToCardHandler = (product: product) => {
+    dispatch(addItem(product));
+  };
 
   return (
     <div className='p-4'>
@@ -33,10 +46,10 @@ const ProductCard = ({ product }: Props) => {
       </Link>
       <div className='flex items-center mt-2'>
         {ratingArray.map((_, index) => (
-          <StarIcon key={index} size={16} fill="yellow" className="text-yellow-500" />
+          <StarIcon key={index} size={16} className="text-yellow-500" fill="currentColor" />
         ))}
       </div>
-  
+
       {/* Pricing */}
       <div className='flex mt-2 items-center space-x-2'>
         <p className='text-black text-base line-through font-semibold opacity-50'>
@@ -46,15 +59,15 @@ const ProductCard = ({ product }: Props) => {
           {`$${product.price.toFixed(2)}`}
         </p>
       </div>
+
       {/* Bottoms */}
       <div className='mt-4 flex items-center space-x-2'>
-        <Button size={"icon"}>
-            <ShoppingBag size={18}/>
+        <Button onClick={() => addToCardHandler(product)} size={"icon"}>
+          <ShoppingBag size={18} />
         </Button>
         <Button size={"icon"} className='bg-red-600'>
-          <Heart/>
+          <Heart />
         </Button>
-
       </div>
     </div>
   );

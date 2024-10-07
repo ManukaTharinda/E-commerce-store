@@ -21,7 +21,3 @@ export async function getAllProduct() {
 
     
 
-export async function getProductByCategory(Catagory:string){
-    const productByCatagoryRes = await fetch('https://fakestoreapi.com/products/category/jewelery')
-    return productByCatagoryRes.json();
-}

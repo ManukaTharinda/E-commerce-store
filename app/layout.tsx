@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+
 import Nav from "@/components/Home/Nav";
 import { ClerkProvider } from "@clerk/nextjs";
+
 import Footer from "@/components/Home/Footer";
 import StoreProvider from "@/storeProvider/storeProvider"; // Adjust the path accordingly
 
